@@ -1,5 +1,6 @@
 import json
 
+raise Exception
 
 class Ticket:
     def __init__(self):
