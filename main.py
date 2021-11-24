@@ -29,7 +29,7 @@ class Ticket:
 cmd = "curl https://zccjackhe2.zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
 
 def sortf(ticket):
-    return ticket.get_attr('id')
+    return int(ticket.get_attr('id'))
 
 def out(command):
     result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True)
