@@ -44,7 +44,7 @@ def shell_out(command):
 
 def display_ticket_simple(ticket_arr, start_id, end_id):
     print("Displaying ",start_id,"to",end_id-1," out of", len(ticket_arr),"tickets")
-    pt = prettytable.PrettyTable(['id','subject','description'])
+    pt = prettytable.PrettyTable(['Updated at','subject','description'])
     for i in range(start_id,end_id):
         ticket = ticket_arr[i]
         pt.add_row(ticket.simple_info())
@@ -54,8 +54,15 @@ def display_ticket_detail(ticket_arr, ticket_id):
     print("Displaying ticket #",ticket_id)
     ticket = ticket_arr[ticket_id]
     detail_info = ticket.detail_info()
-    print(detail_info.keys())
-
+    for key in detail_info.keys:
+        print(key,":",detail_info[key])
+##    print(detail_info.keys())
+##    print(detail_info)
+##dict_keys(['url', 'id', 'status', 'priority', 'type', 'subject',
+##    'description', 'organization_id', 'via', 'custom_fields', 'requester_id',
+##    'collaborator_ids', 'email_cc_ids', 'is_public', 'due_at', 'can_be_solved_by_me',
+##    'created_at', 'updated_at', 'recipient', 'followup_source_id', 'assignee_id',
+##    'ticket_form_id', 'fields'])
 
 content = shell_out(cmd)
 request_str = json.loads(content)
@@ -73,9 +80,11 @@ for ticket in request_str[content_key]:
     res.append(Ticket(ticket))
 res.sort(key=sortf)
 
-##display_ticket_simple(res, 0,15)
+display_ticket_simple(res, 0,15)
+print('***\n')
+##display_ticket_detail(res, 0)
 ##print('***\n')
-display_ticket_detail(res, 0)
+##display_ticket_detail(res, 10)
 
 
 
