@@ -12,15 +12,18 @@ class Ticket:
     def __init__(self, content):
         self.contents = content
         
-    def get_attr(self,attr):
+    def get_attr(self,attr,max_len=99999):
         if attr not in self.contents.keys():
             return " N/A "
-        return self.contents[attr]
+        res = self.contents[attr]
+        if len(res) > max_len:
+            res = res[0:max_len]+'...'
+        return res
     
     def simple_info(self):
-        index = self.get_attr('id')
-        subject = self.get_attr('subject')
-        description = self.get_attr('description')
+        index = self.get_attr('id',8)
+        subject = self.get_attr('subject',30)
+        description = self.get_attr('description',20)
         return [index,subject,description]
 #todo configure password and username    
 cmd = "curl https://zccjackhe2.zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
