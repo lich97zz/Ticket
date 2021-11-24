@@ -2,7 +2,7 @@ import os
 from subprocess import PIPE, run
 import json
 import prettytable
-from tabulate import tabulate
+
 
 
 class Ticket:
@@ -35,7 +35,8 @@ def out(command):
 
 def display_ticket_simple(ticket_arr, start_id, end_id):
     pt = prettytable.PrettyTable(['id','subject','description'])
-    for ticket in ticket_arr[start_id, end_id]:
+    for i in range(start_id,end_id):
+        ticket = ticket_arr[i]
         pt.add_row([ticket['id'],ticket['subject'],ticket['description']])
     print(pt)
 
