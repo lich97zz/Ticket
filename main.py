@@ -82,9 +82,9 @@ res.sort(key=sortf)
 
 display_ticket_simple(res, 0,15)
 print('***\n')
-##display_ticket_detail(res, 0)
-##print('***\n')
-##display_ticket_detail(res, 10)
+display_ticket_detail(res, 0)
+print('***\n')
+display_ticket_detail(res, 10)
 
 
 
