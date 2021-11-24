@@ -12,7 +12,13 @@ class Ticket:
 
 #todo configure password and username    
 cmd = "curl https://zccjackhe2.zendesk.com/api/v2/groups.json -v -u yitaohe2@illinois.edu:MissHarry60."
-out = os.popen(cmd).read()
+##out = os.popen(cmd).read()
 
+from subprocess import PIPE, run
 
-print("OUT:",out)
+def out(command):
+    result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True)
+    return result.stdout
+
+out_str = out(cmd)
+print("OUT:",out_str)
