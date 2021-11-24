@@ -15,7 +15,7 @@ class Ticket:
     def get_attr(self,attr,max_len=99999):
         if attr not in self.contents.keys():
             return " N/A "
-        res = self.contents[attr]
+        res = str(self.contents[attr])
         if len(res) > max_len:
             res = res[0:max_len]+'...'
         return res
