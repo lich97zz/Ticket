@@ -54,7 +54,7 @@ def display_ticket_simple(ticket_arr, start_id, end_id):
 def display_ticket_detail(ticket_arr, ticket_id):
     print("Displaying ticket #",ticket_id)
     pt = prettytable.PrettyTable([' ','  '])
-    table._max_width = {" " : 25, "Field 3" : 65}
+    pt._max_width = {" " : 25, "Field 3" : 65}
     ticket = ticket_arr[ticket_id]
     detail_info = ticket.detail_info()
     for row in detail_info:
