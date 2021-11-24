@@ -1,5 +1,6 @@
 import os
-
+from subprocess import PIPE, run
+import json
 class Ticket:
     def __init__(self):
         self.contents = dict()
@@ -11,14 +12,18 @@ class Ticket:
         return self.contents.keys[attr]
 
 #todo configure password and username    
-cmd = "curl https://zccjackhe2.zendesk.com/api/v2/groups.json -v -u yitaohe2@illinois.edu:MissHarry60."
-##out = os.popen(cmd).read()
+cmd = "curl https://zccjackhe2.zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
 
-from subprocess import PIPE, run
 
 def out(command):
     result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True)
     return result.stdout
 
-out_str = out(cmd)
-print("OUT:",out_str)
+content = out(cmd)
+request_str = json.loads(content)
+content_key = content[1:].split(':')[0][1:-1]
+res = []
+for ticket in request_str[content_key]:
+    res.append(ticket)
+    
+print(res[0])
