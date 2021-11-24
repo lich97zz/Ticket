@@ -37,7 +37,7 @@ def display_ticket_simple(ticket_arr, start_id, end_id):
     pt = prettytable.PrettyTable(['id','subject','description'])
     for i in range(start_id,end_id):
         ticket = ticket_arr[i]
-        pt.add_row([ticket['id'],ticket['subject'],ticket['description']])
+        pt.add_row(ticket.simple_info())
     print(pt)
 
 content = out(cmd)
