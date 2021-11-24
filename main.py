@@ -54,7 +54,7 @@ def display_ticket_detail(ticket_arr, ticket_id):
     print("Displaying ticket #",ticket_id)
     ticket = ticket_arr[ticket_id]
     detail_info = ticket.detail_info()
-    for key in detail_info.keys:
+    for key in detail_info.keys():
         print(key,":",detail_info[key])
 ##    print(detail_info.keys())
 ##    print(detail_info)
