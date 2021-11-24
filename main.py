@@ -3,8 +3,6 @@ from subprocess import PIPE, run
 import json
 import prettytable
 
-
-
 class Ticket:
     def __init__(self):
         self.contents = dict()
@@ -27,10 +25,11 @@ class Ticket:
         return [index,subject,description]
 
     def detail_info(self):
-        res = []
-        for attr in self.contents.keys():
-            res.append([attr,self.get_attr(attr)])
-        return res
+        return self.contents
+##        res = []
+##        for attr in self.contents.keys():
+##            res.append([attr,self.get_attr(attr)])
+##        return res
     
 #todo configure password and username    
 cmd = "curl https://zccjackhe2.zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
@@ -53,13 +52,9 @@ def display_ticket_simple(ticket_arr, start_id, end_id):
 
 def display_ticket_detail(ticket_arr, ticket_id):
     print("Displaying ticket #",ticket_id)
-    pt = prettytable.PrettyTable([' ','  '])
-    pt._max_width = {" " : 25, "Field 3" : 65}
     ticket = ticket_arr[ticket_id]
     detail_info = ticket.detail_info()
-    for row in detail_info:
-        pt.add_row(row)
-    print(pt)
+    print(detail.info.keys())
 
 
 content = shell_out(cmd)
@@ -78,8 +73,8 @@ for ticket in request_str[content_key]:
     res.append(Ticket(ticket))
 res.sort(key=sortf)
 
-display_ticket_simple(res, 0,15)
-print('***\n')
+##display_ticket_simple(res, 0,15)
+##print('***\n')
 display_ticket_detail(res, 0)
 
 
