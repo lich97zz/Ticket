@@ -7,7 +7,7 @@ class Ticket:
     def get_attr(self,attr):
         if attr not in self.contents.keys():
             print(attr,"not existed!")
-            break
+            return
         return self.contents.keys[attr]
     
 cmd = "curl https://zccjackhe2.zendesk.com/api/v2/groups.json -v -u yitaohe2@illinois.edu:MissHarry60."
