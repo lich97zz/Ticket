@@ -161,11 +161,12 @@ def main():
     token = ""
     with open("configure",'r') as f:
         f_content = f.readlines()
-        if f_content < 2:
+        if len(f_content) < 2:
             print("Invalid configuration, please check the subdomain and token in the configure file...")
             return
         subdomain = str(f_content[0])
         token = str(f_content[1])
+        
     cmd = "curl https://"+subdomain+".zendesk.com/api/v2/users.json -H \"Authorization: Bearer "+token+"\""
     ##cmd = "curl https://"+subdomain+".zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
     content = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True).stdout
@@ -216,6 +217,7 @@ def main():
             print("*Type 2 to view a ticket")
             print("*Type 'quit' to exit")
 
+if __name__ == "__main__":
+   main()
 
-main()
 
