@@ -37,6 +37,7 @@ class Ticket:
     def empty_val(self,attr):
         empty = ['','None','[]','{}']
         return self.contents[attr] in empty
+
     
 class Query:
     def __init__(self):
