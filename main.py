@@ -169,7 +169,7 @@ def main():
         
     cmd = "curl https://"+subdomain+".zendesk.com/api/v2/users.json -H \"Authorization: Bearer "+token+"\""
     ##cmd = "curl https://"+subdomain+".zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
-    content = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True).stdout
+    content = run(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True).stdout
 
     display_ticket = 0
     global q
