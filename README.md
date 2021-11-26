@@ -8,8 +8,8 @@ To start:
 1. Please have python3 and pip installed
    https://www.python.org/downloads/
    https://pip.pypa.io/en/stable/installation/
-2. Install python library by running file "pipInstall" in the folder,
-   or using command(Some pip version requires using pip3 instead of pip):
+2. Install python library by running file using command "./pipInstall" in the folder,
+   or using pip command(Some pip version requires using pip3 instead of pip):
    pip install prettytable
 3. Generate a zendesk OAuth API token, you may refer to following website for details:
    https://developer.zendesk.com/documentation/ticketing/working-with-oauth/creating-and-using-oauth-tokens-with-the-api/#create-an-oauth-client
