@@ -19,7 +19,7 @@ class Ticket:
         return res
     
     def simple_info(self):
-        index = self.get_attr('id',8)
+        index = self.get_attr('id',15)
         subject = self.get_attr('subject',30)
         description = self.get_attr('description',20)
         update_time = self.get_attr('updated_at',25)
@@ -30,10 +30,7 @@ class Ticket:
 
     def detail_info(self):
         return self.contents
-##        res = []
-##        for attr in self.contents.keys():
-##            res.append([attr,self.get_attr(attr)])
-##        return res
+
     def empty_val(self,attr):
         empty = ['','None','[]','{}']
         return self.contents[attr] in empty
@@ -52,9 +49,12 @@ class Query:
         err_key = ['Error','ERROR','error']
         for err in err_key:
             if err in content_key:
-                print("Oops, something wrong happened with err:",request_str[err])
-                if 'message' in content_key:
-                    print("Info:",request_str['message'])
+                print("Oops, something wrong happened:")
+                if 'title' in request_str[err].keys():
+                    print(request_str[err]['title'])
+
+                if 'message' in request_str[err].keys():
+                    print(request_str[err]['message'])
                 raise Exception
             
         self.ticket_arr = []
@@ -170,11 +170,11 @@ def main():
         subdomain = str(f_content[0]).split("\n")[0]
         token = str(f_content[1]).split("\n")[0]
 
-    print("Welcome to ticket viewer")
-    print("Establishing connection for ",subdomain,'...')    
-    cmd = "curl https://"+subdomain+".zendesk.com/api/v2/users.json -H \"Authorization: Bearer "+token+"\""
+    print("Welcome to ticket viewer!")
+    print("It may take a while to find ",subdomain,'\'s tickets...')    
+    cmd = "curl https://"+subdomain+".zendesk.com/api/v2/requests.json -H \"Authorization: Bearer "+token+"\""
 
-    print("cmd:",cmd)
+####    print("cmd:",cmd)
     
     ##cmd = "curl https://"+subdomain+".zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
     content = run(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True).stdout
@@ -182,7 +182,7 @@ def main():
     global q
     try:
         q = Query(content)
-    except JSONDecodeError:
+    except json.JSONDecodeError:
         print("An error happened: Unable to parse the JSON, please check with command:",cmd)
         return
     except ValueError:
@@ -191,11 +191,11 @@ def main():
     except:
         return
     
-    print("Welcome to ticket viewer")
+    print()
     print("*Type 1 to view all tickets")
     print("*Type 2 to view a ticket")
     print("*Type 'quit' to exit")
-
+    print()
     while True:
         user_in = input("")
         display_ticket = 0
@@ -203,6 +203,7 @@ def main():
         
         if user_in in ['1',' 1 ',' 1','  1']:
             while True:
+                print()
                 q.display_ticket_simple(display_ticket,display_ticket+25)
                 print("*Type 2 to view a ticket")
                 if display_ticket > 0:
@@ -221,6 +222,7 @@ def main():
                 
             
         if user_in in ['2',' 2 ',' 2','  2']:
+            print()
             user_in = input("Please enter ticket id:")
             q.display_ticket_detail(int(user_in))
         if user_in in ['quit','Quit','QUIT','q','Q']:
@@ -234,6 +236,9 @@ def main():
             print("*Type 'quit' to exit")
 
 if __name__ == "__main__":
-   main()
+    try:
+        main()
+    except:
+        pass
 
 
