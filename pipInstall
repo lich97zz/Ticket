@@ -1,5 +1,2 @@
 #!/bin/sh
-
-exec pip install subprocess $@
-exec pip install json $@
 exec pip install prettytable $@
