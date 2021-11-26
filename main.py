@@ -45,20 +45,23 @@ class Query:
     def __init__(self,content):
         self.ticket_arr = []
         request_str = json.loads(content)
+            
         content_key = content[1:].split(':')[0][1:-1]
 
         #err handle
         err_key = ['Error','ERROR','error']
         for err in err_key:
             if err in content_key:
-                print("Oops, something wrong happened with err:",content_key[err])
+                print("Oops, something wrong happened with err:",request_str[err])
                 if 'message' in content_key:
-                    print("Info:",content_key['message'])
+                    print("Info:",request_str['message'])
                 raise Exception
             
         self.ticket_arr = []
         for ticket in request_str[content_key]:
             self.ticket_arr.append(Ticket(ticket))
+        if len(self.ticket_arr) == 0:
+            raise ValueError
         self.ticket_arr.sort(key=self.sortf)
         
     def time_to_arr(self, time_str):
@@ -166,16 +169,28 @@ def main():
             return
         subdomain = str(f_content[0]).split("\n")[0]
         token = str(f_content[1]).split("\n")[0]
-        
+
+    print("Welcome to ticket viewer")
+    print("Establishing connection for ",subdomain,'...')    
     cmd = "curl https://"+subdomain+".zendesk.com/api/v2/users.json -H \"Authorization: Bearer "+token+"\""
+
     print("cmd:",cmd)
     
     ##cmd = "curl https://"+subdomain+".zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
     content = run(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True).stdout
     display_ticket = 0
     global q
-    q = Query(content)
-
+    try:
+        q = Query(content)
+    except JSONDecodeError:
+        print("An error happened: Unable to parse the JSON, please check with command:",cmd)
+        return
+    except ValueError:
+        print("Oops, There is no ticket under user:",subdomain)
+        return
+    except:
+        return
+    
     print("Welcome to ticket viewer")
     print("*Type 1 to view all tickets")
     print("*Type 2 to view a ticket")
