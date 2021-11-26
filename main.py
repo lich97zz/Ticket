@@ -164,13 +164,14 @@ def main():
         if len(f_content) < 2:
             print("Invalid configuration, please check the subdomain and token in the configure file...")
             return
-        subdomain = str(f_content[0])
-        token = str(f_content[1])
+        subdomain = str(f_content[0]).split("\n")[0]
+        token = str(f_content[1]).split("\n")[0]
         
     cmd = "curl https://"+subdomain+".zendesk.com/api/v2/users.json -H \"Authorization: Bearer "+token+"\""
+    print("cmd:",cmd)
+    
     ##cmd = "curl https://"+subdomain+".zendesk.com/api/v2/requests.json -v -u yitaohe2@illinois.edu:MissHarry60."
     content = run(cmd, stdout=PIPE, stderr=PIPE, universal_newlines=True, shell=True).stdout
-
     display_ticket = 0
     global q
     q = Query(content)
