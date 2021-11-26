@@ -9,7 +9,7 @@ To start:
    https://www.python.org/downloads/
    https://pip.pypa.io/en/stable/installation/
 2. Install python library by running file "pipInstall" in the folder,
-   or using command:
+   or using command(Some pip version requires using pip3 instead of pip):
    pip install prettytable
 3. Generate a zendesk OAuth API token, you may refer to following website for details:
    https://developer.zendesk.com/documentation/ticketing/working-with-oauth/creating-and-using-oauth-tokens-with-the-api/#create-an-oauth-client
@@ -17,4 +17,6 @@ To start:
    replace first line with your zendesk subdomain
    replace second line with OAuth token
 5. You are all set! Now you can run ticketViewer with command:
+   ./ticketViewer
+   or(Some python version requires using python3 instead of python):
    python ticketViewer.py
